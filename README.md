@@ -105,7 +105,7 @@ data() {
   },
   methods: {
     async queryList(pageInfo) {
-      if (!pageInfo) {
+      if (!pageInfo) { // 外部调用queryList没有分页对象
         this.$refs.manufacturerTable.init()
         return
       }
@@ -113,8 +113,6 @@ data() {
       const params = { ...this.formModel, rows: pageInfo.pageSize, page: pageInfo.page }
       delete params.createTime
  
-      this.loading = true
-      this.loadingText = '加载中...'
       try {
         const { list, total } = await queryManufactorList(params)
         this.loading = false
